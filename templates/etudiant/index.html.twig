@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List des Etudiant{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+        <h1>List des Etudiants ✅</h1>
+        <h3> <a href="{{ path('etudiantform',{id : 0}) }}">Ajouter Un Etudiant</a> </h3>
+        <table class="table">
+
+            <tr>
+                <th>Firstname</th>
+                <th>Name</th>
+                <th>Section</th>
+                <th>Action</th>
+            </tr>
+            {% for e in etds %}
+
+                <tr class="table-{% if loop.index is even %}warning{% else %}danger{% endif %}">
+                    <td onclick="changeColor(this)" > {{ e.nom }}</td>
+                    <td onclick="changeColor(this)" >{{ e.prenom }}</td>
+                    <td onclick="changeColor(this)" >{% if e.section is null %} Etudiant non encore affecte a une section
+                        {% else %} {{ e.section }} {% endif %}
+                    </td>
+                    <td onclick="changeColor(this)" >
+                        <a href="{{ path('etudiantform',{id : e.id}) }}">Edit</a>
+                        <a href="{{ path('removeEtudiant',{id : e.id}) }}">Delete</a>
+
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+    <script src="{{ asset('assets/script.js') }}"></script>
+{% endblock %}
